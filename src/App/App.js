@@ -7,7 +7,7 @@ import './App.css';
 const App = () => (
   <Grid>
     <Row>
-      <Col>
+      <Col xs={12}>
         <Recipe />
       </Col>
     </Row>

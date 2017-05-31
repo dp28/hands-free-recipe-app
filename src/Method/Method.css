@@ -1,0 +1,8 @@
+.Method {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+.MethodItem {
+  display: list-item;
+}
