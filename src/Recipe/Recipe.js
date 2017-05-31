@@ -1,20 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 export const Recipe = ({ recipe }) => (
   <div>
-    <h1>{recipe.title}</h1>
-    <ul>
+    <PageHeader>{recipe.title}</PageHeader>
+    <ListGroup>
       {recipe.ingredients.map(toListItem)}
-    </ul>
-    <ol>
+    </ListGroup>
+    <ListGroup>
       {recipe.method.map(toListItem)}
-    </ol>
+    </ListGroup>
   </div>
 );
 
 function toListItem(text) {
-  return <li key={text}>{text}</li>;
+  return <ListGroupItem>{text}</ListGroupItem>;
 }
 
 export function mapStateToProps({ recipe }) {
