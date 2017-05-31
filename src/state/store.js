@@ -1,6 +1,9 @@
-import { createStore } from 'redux';
-import reducer from './reducer';
+import { createStore, applyMiddleware } from 'redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-export default function buildStore() {
-  return createStore(reducer);
+import reducer from './reducer';
+import loadInitialState from './initialState';
+
+export default function buildStore(state = loadInitialState()) {
+  return createStore(reducer, state, devToolsEnhancer());
 }
