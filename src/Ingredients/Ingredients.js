@@ -1,14 +1,14 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
-export const Ingredients = ({ ingredients }) => (
+export const Ingredients = ({ ingredients, focus }) => (
   <ListGroup>
-    {ingredients.map(toListItem)}
+    {ingredients.map((ingredient, index) => (
+      <ListGroupItem key={ingredient} active={focus.isFocused(index)}>
+        {ingredient}
+      </ListGroupItem>
+    ))}
   </ListGroup>
 );
-
-function toListItem(text) {
-  return <ListGroupItem key={text}>{text}</ListGroupItem>;
-}
 
 export default Ingredients;

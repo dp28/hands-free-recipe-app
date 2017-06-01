@@ -1,5 +1,10 @@
+import { buildFocusChain } from '../Focus';
+
 export default function loadInitialState() {
   return {
+    ui: {
+      focus: buildFocusChain(['recipe', 'ingredients', 0]),
+    },
     recipe: {
       title: 'Fat Rascals',
       ingredients: [
