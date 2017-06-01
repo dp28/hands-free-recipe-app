@@ -1,0 +1,1 @@
+export { speechMiddleware } from './speechMiddleware';

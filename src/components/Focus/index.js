@@ -1,5 +1,5 @@
-export { buildFocusChain } from './focusChain';
+export { buildFocusChain, apply } from './focusChain';
 
 export { FocusReducer } from './FocusReducer';
 
-export { nextFocus, previousFocus, changeFocus } from './FocusActions';
+export * from './FocusActions';
