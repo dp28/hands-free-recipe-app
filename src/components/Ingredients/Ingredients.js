@@ -7,13 +7,16 @@ import { changeFocus } from '../Focus';
 const Path = ['recipe', 'ingredients'];
 
 export const Ingredients = ({ ingredients, focus, focusOn }) => (
-  <ListGroup>
-    {ingredients.map((ingredient, index) => (
-      <ListGroupItem key={ingredient} active={focus.isFocused(index)} onClick={focusOn(index)}>
-        {ingredient}
-      </ListGroupItem>
-    ))}
-  </ListGroup>
+  <div className="Ingredients">
+    <h3>Ingredients</h3>
+    <ListGroup>
+      {ingredients.map((ingredient, index) => (
+        <ListGroupItem key={ingredient} active={focus.isFocused(index)} onClick={focusOn(index)}>
+          {ingredient}
+        </ListGroupItem>
+      ))}
+    </ListGroup>
+  </div>
 );
 
 export function mapDispatchToProps(dispatch) {

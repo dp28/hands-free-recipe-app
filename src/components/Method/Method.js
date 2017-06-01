@@ -8,18 +8,21 @@ import './Method.css';
 const Path = ['recipe', 'method'];
 
 export const Method = ({ method, focus, focusOn }) => (
-  <ListGroup className="Method">
-    {method.map((methodItem, index) => (
-      <ListGroupItem
-        key={methodItem}
-        className="MethodItem"
-        active={focus.isFocused(index)}
-        onClick={focusOn(index)}
-      >
-        {methodItem}
-      </ListGroupItem>
-    ))}
-  </ListGroup>
+  <div className="Method">
+    <h3>Method</h3>
+    <ListGroup className="MethodList">
+      {method.map((methodItem, index) => (
+        <ListGroupItem
+          key={methodItem}
+          className="MethodItem"
+          active={focus.isFocused(index)}
+          onClick={focusOn(index)}
+        >
+          {methodItem}
+        </ListGroupItem>
+      ))}
+    </ListGroup>
+  </div>
 );
 
 export function mapDispatchToProps(dispatch) {
