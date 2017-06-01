@@ -1,4 +1,4 @@
-import { buildFocusChain } from '../Focus';
+import { buildFocusChain } from '../components/Focus';
 
 export default function loadInitialState() {
   return {

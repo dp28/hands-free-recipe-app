@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import buildStore from './state/store';
-import { nextFocus, previousFocus } from './Focus';
-import App from './App';
+import { nextFocus, previousFocus } from './components/Focus';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
