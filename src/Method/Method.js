@@ -1,15 +1,31 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { connect } from 'react-redux';
+
+import { changeFocus } from '../Focus';
 import './Method.css';
 
-export const Method = ({ method, focus }) => (
+const Path = ['recipe', 'method'];
+
+export const Method = ({ method, focus, focusOn }) => (
   <ListGroup className="Method">
     {method.map((methodItem, index) => (
-      <ListGroupItem key={methodItem} className="MethodItem" active={focus.isFocused(index)}>
+      <ListGroupItem
+        key={methodItem}
+        className="MethodItem"
+        active={focus.isFocused(index)}
+        onClick={focusOn(index)}
+      >
         {methodItem}
       </ListGroupItem>
     ))}
   </ListGroup>
 );
 
-export default Method;
+export function mapDispatchToProps(dispatch) {
+  return {
+    focusOn: index => () => dispatch(changeFocus([ ...Path, index ])),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Method);
