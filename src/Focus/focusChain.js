@@ -7,6 +7,10 @@ export function buildFocusChain(fullChain, currentLevelIndex = 0) {
   };
 }
 
+export function apply(focusChain, state) {
+  return focusChain.reduce((soFar, property) => soFar[property], state);
+}
+
 function buildNestedFocus(focus) {
   return (property) => {
     const nextLevelIndex = isFocused(focus)(property) ? focus.currentLevelIndex + 1 : null;
