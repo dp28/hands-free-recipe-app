@@ -1,6 +1,6 @@
 import { apply, NEXT_FOCUS, PREVIOUS_FOCUS, CHANGE_FOCUS } from '../components/Focus';
 import { sayImmediately, canSpeak } from './speak';
-import { registerCommandListener } from './listen';
+import { getSpokenCommandStream } from './listen';
 
 const unsafeSpeechMiddleware = store => next => action => {
   const result = next(action);
@@ -10,7 +10,8 @@ const unsafeSpeechMiddleware = store => next => action => {
 
 export function speechMiddleware(store) {
   if (canSpeak()) {
-    registerCommandListener(store.dispatch);
+    const getCurrentlySpokenText = () => getCurrentTextToSpeechTarget(store.getState());
+    getSpokenCommandStream(getCurrentlySpokenText).subscribe(store.dispatch);
     return unsafeSpeechMiddleware(store);
   }
   else {
@@ -21,6 +22,10 @@ export function speechMiddleware(store) {
 
 export function performSpeechSideEffect(state, action) {
   if ([NEXT_FOCUS, PREVIOUS_FOCUS, CHANGE_FOCUS].includes(action.type)) {
-    sayImmediately(apply(state.ui.focus.data.fullChain, state));
+    sayImmediately(getCurrentTextToSpeechTarget(state));
   }
+}
+
+function getCurrentTextToSpeechTarget(state) {
+  return apply(state.ui.focus.data.fullChain, state);
 }

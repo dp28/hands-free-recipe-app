@@ -13,16 +13,15 @@ const CommandsToActions = {
   '*unmatched': unmatchedSpeech,
 }
 
-export function registerCommandListener(dispatchAction) {
+export function getSpokenCommandStream(getCurrentTextToSpeechTarget) {
   const stream = new Subject();
   const commands = buildCommands(stream);
   annyang.addCommands(commands);
 
-  stream
-    .debounce(500)
-    .subscribe(dispatchAction);
-
   annyang.start();
+  return stream
+    .debounce(500)
+    .filter(action => action.unmatched !== getCurrentTextToSpeechTarget());
 }
 
 function buildCommands(stream) {
@@ -36,7 +35,6 @@ function mapValues(map, object) {
 function appendMapped(map) {
   return (object, [key, value]) => {
     object[key] = map(value);
-    console.log(key, value, map, object);
     return object;
   }
 }
