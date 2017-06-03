@@ -10,8 +10,7 @@ const unsafeSpeechMiddleware = store => next => action => {
 
 export function speechMiddleware(store) {
   if (canSpeak()) {
-    const getCurrentlySpokenText = () => getCurrentTextToSpeechTarget(store.getState());
-    getSpokenCommandStream(getCurrentlySpokenText).subscribe(store.dispatch);
+    getSpokenCommandStream(store.getState, getCurrentTextToSpeechTarget).subscribe(store.dispatch);
     return unsafeSpeechMiddleware(store);
   }
   else {
