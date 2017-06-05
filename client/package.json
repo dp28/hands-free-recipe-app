@@ -1,7 +1,12 @@
 {
   "name": "hands-free-recipe-app",
   "version": "0.1.0",
-  "private": true,
+  "author": "Daniel Patterson",
+  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dp28/hands-free-recipe-app.git"
+  },
   "devDependencies": {
     "enzyme": "^2.8.2",
     "react-addons-test-utils": "^15.5.1",
