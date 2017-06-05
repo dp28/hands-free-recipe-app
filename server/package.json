@@ -10,10 +10,13 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "start:watch": "nodemon src/server.js"
+    "start:watch": "nodemon src/server.js",
+    "deploy": "./bin/deploy_to_heroku.sh",
+    "db:start": "./bin/start_mongo.sh"
   },
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "mongodb": "^2.2.28"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
