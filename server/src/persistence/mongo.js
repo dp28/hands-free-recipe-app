@@ -3,16 +3,16 @@ const { MongoClient } = require('mongodb');
 const connect = promisify(MongoClient.connect.bind(MongoClient, process.env.MONGODB_URI));
 
 module.exports = {
-  getTests: () => {
-    return connectToCollection('tests').then(tests => {
-      const results = tests.find();
+  getCollection: collectionName => (
+    connectToCollection(collectionName).then(collection => {
+      const results = collection.find();
       return promisify(results.toArray.bind(results));
-    });
-  },
+    })
+  ),
 
-  insertTest: (test) => (
-    connectToCollection('tests').then(tests => (
-      promisify(tests.insert.bind(tests, test))
+  insertInCollection: (collectionName, item) => (
+    connectToCollection(collectionName).then(collection => (
+      promisify(collection.insert.bind(collection, test))
     ))
   ),
 };

@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node src/server.js",
     "start:watch": "nodemon src/server.js",
-    "deploy": "./bin/deploy_to_heroku.sh",
+    "deploy": "./bin/deploy_to_heroku",
     "db:start": "./bin/start_mongo.sh"
   },
   "dependencies": {
