@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const performRequest = require('request-promise');
 
 const { getCollection, insertInCollection } = require('./persistence');
 
@@ -19,10 +20,11 @@ app.get('/', (request, response) => {
   response.render('index');
 });
 
-app.get('/test', (request, response) => {
+app.get('/recipe/:recipeURL', (request, response) => {
   console.log(`GET ${request.hostname}:${port}${request.path}`);
-  insertInCollection('tests', { data: new Date() })
-    .then((res) => response.send('inserted ' + JSON.stringify(res, null, 2)));
+  performRequest(request.params.recipeURL).then((result) => {
+    response.send(result);
+  });
 });
 
 console.log('Listening on port', port);
