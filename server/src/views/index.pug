@@ -1,0 +1,25 @@
+html
+  head
+    title Hand-free recipes
+
+  body
+    h1 Hands-free recipes
+
+    form#recipeForm
+      label Paste a link to a recipe:
+      input#recipeURL(type='text' name='recipeURL')
+
+      input(type='submit')
+
+    script.
+      (function() {
+        function findById(id) {
+          return document.getElementById(id);
+        }
+
+        findById('recipeForm').addEventListener('submit', function (event) {
+          event.preventDefault();
+          var recipeURL = findById('recipeURL').value;
+          window.location = '/recipe/' + encodeURIComponent(recipeURL);
+        });
+      })();

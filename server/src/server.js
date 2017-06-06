@@ -1,9 +1,13 @@
 const express = require('express');
+const path = require('path');
 
 const { getCollection, insertInCollection } = require('./persistence');
 
 const app = express();
 const port = process.env.PORT || 3001;
+
+app.set('views', path.join(__dirname, './views'));
+app.set('view engine', 'pug');
 
 app.get('/healthcheck', (request, response) => {
   console.log(`GET ${request.hostname}:${port}${request.path}`);
@@ -12,8 +16,7 @@ app.get('/healthcheck', (request, response) => {
 
 app.get('/', (request, response) => {
   console.log(`GET ${request.hostname}:${port}${request.path}`);
-  getCollection('tests')
-    .then(tests => response.send('Hello, world\n' + JSON.stringify(tests, null, 2)));
+  response.render('index');
 });
 
 app.get('/test', (request, response) => {
