@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-# Must be run from top level of git repo.
-
-if ARGV.include?('--force')
-  `git push heroku \`git subtree split --prefix server master\`:master --force-with-lease`
-else
-  `git subtree push --prefix server heroku master`
-end
