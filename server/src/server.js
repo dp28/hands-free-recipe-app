@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const performRequest = require('request-promise');
+const { parse } = require('recipe-parser');
 
 const { getCollection, insertInCollection } = require('./persistence');
 
@@ -12,7 +13,7 @@ app.set('view engine', 'pug');
 
 app.get('/healthcheck', (request, response) => {
   console.log(`GET ${request.hostname}:${port}${request.path}`);
-  response.send({ status: 'healthy' });
+  response.send({ status: 'healthy', dep: parse() });
 });
 
 app.get('/', (request, response) => {

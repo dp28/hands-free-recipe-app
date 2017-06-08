@@ -1,0 +1,8 @@
+{
+  "name": "recipe-parser",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/dp28/hands-free-recipe-app.git",
+  "author": "Daniel Patterson",
+  "license": "MIT"
+}

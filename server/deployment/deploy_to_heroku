@@ -12,23 +12,36 @@ end
 def load_json(file_name)
   JSON.parse File.read(file_name)
 end
+def replace_in_file(file_name, to_replace, substitution)
+  content = File.read(file_name)
+  File.write file_name, content.gsub(to_replace, substitution)
+end
 
-def write_json(file_name, hash)
-  puts "Writing #{file_name}"
-  File.write(file_name, JSON.dump(hash))
+def copy_repo(source, destination)
+  run "rsync -av --exclude='.git' --exclude-from='#{source}/.gitignore' #{source}/ #{destination}"
+end
+
+def copy_repo_into(source, destination)
+  run "rsync -av --exclude='.git' --exclude-from='#{source}/.gitignore' #{source} #{destination}"
 end
 
 def move_local_dependencies_into_subdirectory
-  package_json = load_json './package.json'
+  puts 'Changing dependency locations'
   dependency_overrides = load_json './deployment/dependency_overrides.json'
-  package_json['dependencies'].merge! dependency_overrides
-  write_json './package.json', package_json
+  dependency_overrides.each do |original, replacement|
+    replace_in_file './package.json', original, replacement
+    replace_in_file './yarn.lock', original, replacement
+  end
 end
 
 root_dir = run('git rev-parse --show-toplevel').strip
 server_dir = "#{root_dir}/server"
+parser_dir = "#{root_dir}/recipe-parser"
 deploy_dir = "#{root_dir}/deploy"
-run "rsync -av --exclude='.git' --exclude-from='#{server_dir}/.gitignore' #{server_dir}/ #{deploy_dir}"
+dependencies_dir = "#{deploy_dir}/dependencies"
+copy_repo server_dir, deploy_dir
+`mkdir #{dependencies_dir}`
+copy_repo_into parser_dir, dependencies_dir
 
 Dir.chdir(deploy_dir) do
   puts "cd #{deploy_dir}"
