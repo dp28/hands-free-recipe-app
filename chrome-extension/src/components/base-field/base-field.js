@@ -1,7 +1,7 @@
 import baseTemplate from './base-field.pug';
 import { restoreElementStyles } from '../../dom/style';
 import { find } from '../../dom/css';
-import { parseField } from '../../parser';
+import { parseField } from 'recipe-parser';
 import {
   addEventListeners,
   addEventListener,
@@ -60,7 +60,7 @@ export function BaseField({ template, requestSelection }) {
     };
 
     function evaluate() {
-      value = parseField(field);
+      value = parseField(field, document.documentElement.outerHTML);
     };
 
     evaluate();

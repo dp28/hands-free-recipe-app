@@ -4,5 +4,9 @@
   "main": "src/index.js",
   "repository": "https://github.com/dp28/hands-free-recipe-app.git",
   "author": "Daniel Patterson",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "xmldom": "^0.1.27",
+    "xpath": "^0.0.24"
+  }
 }

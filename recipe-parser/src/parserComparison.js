@@ -1,21 +1,24 @@
-import { parse } from './parse';
+const { parseFields } = require('./parser');
 
 const CountContent = {
   text: text => (text && text.length ? 1 : 0),
   list: list => (list && list.length ? list.length : 0),
 };
 
-export function findBestParser(parsers) {
-  console.log(parsers)
-  return findMostComplete(parsers)
-    .map(getOutputWithSize)
-    .sort((a, b) => b.size - a.size)[0];
+module.exports = {
+  findBestParser: (parsers, dom) => {
+    return findMostComplete(parsers)
+      .map(getOutputWithSize(dom))
+      .sort((a, b) => b.size - a.size)[0];
+    }
 }
 
-function getOutputWithSize(parser) {
-  const output = parse(parser);
-  const size = calculateContentSize(parser, output);
-  return { parser, output, size };
+function getOutputWithSize(dom) {
+  return (parser) => {
+    const output = parseFields(parser.fields, dom);
+    const size = calculateContentSize(parser, output);
+    return { parser, output, size };
+  }
 }
 
 function calculateContentSize(parser, parserOutput) {

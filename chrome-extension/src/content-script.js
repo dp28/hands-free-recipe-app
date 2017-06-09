@@ -1,7 +1,7 @@
 import { RecipeForm } from './components/recipe-form/recipe-form';
 import { TextField } from './components/text-field/text-field';
 import { registerFunctions, connect } from './messaging/rpc';
-import { findBestParser } from './parser';
+import { findBestParser } from 'recipe-parser';
 
 const Connection = connect();
 
@@ -22,7 +22,7 @@ const EmptyParser = {
 };
 
 call('fetchRecipeParser')
-  .then(findBestParser)
+  .then(parsers => findBestParser(parsers, document.documentElement.outerHTML))
   .then(loadPopup);
 
 function loadPopup({ parser, output } = { parser: EmptyParser, output: {} }) {
